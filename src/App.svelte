@@ -1,25 +1,29 @@
 <script>
-    let cats = [
-        {id: 'J---aiyznGQ', name: 'Keyboard Cat'},
-        {id: 'z_AbfPXTKms', name: 'Maru'},
-        {id: 'OUtn3pvWmpg', name: 'Henri The Existential Cat'}
+    import Thing from './Thing.svelte';
+
+    let things = [
+        {id: 1, name: 'apple'},
+        {id: 2, name: 'banana'},
+        {id: 3, name: 'carrot'},
+        {id: 4, name: 'doughnut'},
+        {id: 5, name: 'egg'},
     ];
+
+    function handleClick(){
+        things = things.slice(1);
+    }
+
+    // Here, (thing.id) is the key, which tells Svelte how to figure out which DOM node to change when the component updates.
+
+    // You can use any object as the key, as Svelte uses a Map internally — in other words you could do (thing) instead of (thing.id).
+    // Using a string or number is generally safer, however, since it means identity persists without referential equality,
+    // for example when updating with fresh data from an API server.
 </script>
 
-<h1>The Famous Cats of YouTube</h1>
+<button on:click={handleClick}>
+    Remove first thing
+</button>
 
-<ul>
-    {#each cats as cat,i}
-        <li><a target="_blank" href="https://www.youtube.com/watch?v={cat.id}">
-            {cat.name}
-        </a></li>
-    {/each}
-</ul>
-
-<ul>
-    {#each cats as {id, name}}
-        <li><a target="_blank" href="https://www.youtube.com/watch?v={id}">
-            {name}
-        </a></li>
-    {/each}
-</ul>
+{#each things as thing (thing.id)}
+    <Thing name={thing.name}/>
+{/each}
