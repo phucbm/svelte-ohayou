@@ -1,26 +1,16 @@
 <script>
-    async function getRandomNumber(){
-        const res = await fetch(`https://my-json-server.typicode.com/phucbm/svelte-ohayou/svelte-db`);
-        const text = await res.text();
+    let m = {x: 0, y: 0};
 
-        if(res.ok){
-            return JSON.parse(text);
-        }else{
-            throw new Error(text);
-        }
-    }
-
-    let promise = getRandomNumber();
-
-    function handleClick(){
-        promise = getRandomNumber();
+    function handleMousemove(event){
+        m.x = event.clientX;
+        m.y = event.clientY;
     }
 </script>
 
-<button on:click={handleClick}>
-    generate random number
-</button>
+<div on:mousemove={handleMousemove}>
+    The mouse position is {m.x} x {m.y}
+</div>
 
-{#await promise then value}
-    <p>the value is {value.number}</p>
-{/await}
+<style>
+    div { width:100%; height:100%; }
+</style>
