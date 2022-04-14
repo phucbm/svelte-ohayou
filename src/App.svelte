@@ -1,10 +1,7 @@
 <script>
-    import Inner from './Inner.svelte';
-    import Outer from "./Outer.svelte";
-
-    function handleMessage(event){
-        console.log(event)
-    }
+    let name = 'world';
 </script>
 
-<Outer on:myevent={handleMessage}/>
+<input bind:value={name}>
+
+<h1>Hello {name}!</h1>
