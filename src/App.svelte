@@ -1,9 +1,9 @@
 <script>
-    function handleClick(){
-        alert('clicked')
+    import Inner from './Inner.svelte';
+
+    function handleMessage(event){
+        console.log(event)
     }
 </script>
 
-<button on:click|once={handleClick}>
-    Click me
-</button>
+<Inner on:myevent={handleMessage}/>
